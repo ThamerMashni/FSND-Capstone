@@ -2,10 +2,10 @@ flask
 flask_migrate
 flask_sqlalchemy
 flask_cors
-psycopg2
+psycopg2-binary
 python-jose
 python-dotenv
 requests
 authlib
 six
-
+flask_script
