@@ -3,11 +3,12 @@ from flask_migrate import Migrate
 from Env import DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME, DB_HOST
 
 # database_path = 'postgres://'f'{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+database_path = 'postgres://psegadhfymizsj:b8bf63fac5f6b7fd9787abf7c2fbdcae54d6f55a83b98a09c9c89e2b82e2b44c@ec2-3-216-89-250.compute-1.amazonaws.com:5432/ddi969jer2a1s8'
 db = SQLAlchemy()
 
 
 def setup_db(app, database_path=database_path):
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgres://psegadhfymizsj:b8bf63fac5f6b7fd9787abf7c2fbdcae54d6f55a83b98a09c9c89e2b82e2b44c@ec2-3-216-89-250.compute-1.amazonaws.com:5432/ddi969jer2a1s8'
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
