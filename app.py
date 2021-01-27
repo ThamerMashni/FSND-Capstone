@@ -6,9 +6,6 @@ from flask_cors import CORS
 from models import setup_db, Movie, Actor
 import sys
 from auth import AuthError, requires_auth
-from authlib.integrations.flask_client import OAuth
-from six.moves.urllib.parse import urlencode
-import json
 from functools import wraps
 from Env import *
 
