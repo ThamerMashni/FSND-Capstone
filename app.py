@@ -10,15 +10,6 @@ from six.moves.urllib.parse import urlencode
 import json
 from functools import wraps
 
-def requires_login(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        if 'profile' not in session:
-            # Redirect to Login page here
-            return redirect('/')
-        return f(*args, **kwargs)
-   
-    return decorated
 
 
 
@@ -44,6 +35,16 @@ def create_app(test_config=None):
         },
     )
 
+    def requires_login(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            if 'profile' not in session:
+                # Redirect to Login page here
+                return redirect('/')
+            return f(*args, **kwargs)
+    
+        return decorated
+        
     @app.route('/callback')
     def callback_handling():
         # Handles response from token endpoint
