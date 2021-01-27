@@ -1,5 +1,6 @@
 import os
-from flask import Flask, request, abort, jsonify, url_for, render_template, session, redirect
+from flask import Flask, request, abort, jsonify
+from flask import url_for, render_template, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Movie, Actor
@@ -9,77 +10,24 @@ from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 import json
 from functools import wraps
-
-
+from Env import *
 
 
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__,
-                static_url_path='',
-                static_folder='templates/public',
-                template_folder='templates')
+    app = Flask(__name__)
 
-    oauth = OAuth(app)
-    app.secret_key = "jwtsecrtkey"
+    db = setup_db(app)
 
-    auth0 = oauth.register(
-        'auth0',
-        client_id='vcylBDMoFwrLB19THy7t7MlMEY4JJkXS',
-        client_secret='KBH9eTEyZzSD7OP3L5EfnxrOHwHEjWkS2MqlGfqrLiWD1yxPXbyNI7at-ZK1tFF5',
-        api_base_url='https://mashni.eu.auth0.com',
-        access_token_url='https://mashni.eu.auth0.com/oauth/token',
-        authorize_url='https://mashni.eu.auth0.com/authorize',
-        client_kwargs={
-            'scope': 'openid profile email',
-        },
-    )
+    @app.route("/auth")
+    def generate_auth_url():
+        url = f'https://{AUTH0_DOMAIN}/authorize' \
+            f'?audience={API_AUDIENCE}' \
+            f'&response_type=token&client_id=' \
+            f'{AUTH0_CLIENT_ID}&redirect_uri=' \
+            f'{AUTH0_CALLBACK_URL}'
 
-    def requires_login(f):
-        @wraps(f)
-        def decorated(*args, **kwargs):
-            if 'profile' not in session:
-                # Redirect to Login page here
-                return redirect('/')
-            return f(*args, **kwargs)
-    
-        return decorated
-        
-    @app.route('/callback')
-    def callback_handling():
-        # Handles response from token endpoint
-        auth0.authorize_access_token()
-        resp = auth0.get('userinfo')
-        userinfo = resp.json()
-
-        # Store the user information in flask session.
-        session['jwt_payload'] = userinfo
-        session['profile'] = {
-            'user_id': userinfo['sub'],
-            'name': userinfo['name'],
-            'picture': userinfo['picture']
-        }
-        return redirect('/dashboard')
-
-    @app.route('/login')
-    def login():
-        return auth0.authorize_redirect(redirect_uri='http://localhost:8080/callback')
-
-        
-    @app.route('/logout')
-    def logout():
-        # Clear session stored data
-        session.clear()
-        # Redirect user to logout endpoint
-        params = {'returnTo': url_for('index', _external=True), 'client_id': 'vcylBDMoFwrLB19THy7t7MlMEY4JJkXS'}
-        return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
-   
-    @app.route('/dashboard')
-    @requires_login
-    def dashboard():
-        return render_template('dashboard.html',
-                               userinfo=session['profile'],
-                               userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
+        return redirect(url)
 
     @app.after_request
     def after_request(response):
@@ -91,7 +39,9 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        return jsonify({
+            'page': 'FSND Capstone Project'
+        })
 
     # GETs
 

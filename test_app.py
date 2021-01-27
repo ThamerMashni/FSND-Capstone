@@ -4,17 +4,17 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, Movie, Actor
+from Env import DB_TEST_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME, DB_HOST
 
-ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFJRmF0M2ctcjY0d1dTMWtnTDNNeSJ9.eyJpc3MiOiJodHRwczovL21hc2huaS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWZmMWY0MWRhMjkxNGQwMDZmNWUzOTcyIiwiYXVkIjoiYWdlbmN5IiwiaWF0IjoxNjExNjA5NTY0LCJleHAiOjE2MTE2MTY3NjQsImF6cCI6InZjeWxCRE1vRndyTEIxOVRIeTd0N01sTUVZNEpKa1hTIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.wiaXgAIgjENq4ZQOkzx7dwRYa7HDiStkaC7A0FHz8gHRCzkgB826xHQKz6EzcIFOcKKC2UPjmxlTkjZCzHz3oHtdpS3tyic5yI_u1k2rbdLvYE1qkMk5T6oU9JnNJz0FuX5xUsgQySTESzL2TFTE22g43fBc6--VWn8xuUl8YN7xcx1j_pIwLAVHjDYXsvvx3AFpwD1Cpq2zhIntOEBLSNwx7Xj7dInHC1OGawlU2qGpAB8fS7R1WWJm9hXgLfabhDIwVXPaX72lgeKADaxc8opdtCrI6YIEEWMvjC3FxDyHNbP5cReVeeI3KwMqylYz3gOpn68pRafF-W223x_X9Q'
+ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFJRmF0M2ctcjY0d1dTMWtnTDNNeSJ9.eyJpc3MiOiJodHRwczovL21hc2huaS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWZmMWY0MWRhMjkxNGQwMDZmNWUzOTcyIiwiYXVkIjoiYWdlbmN5IiwiaWF0IjoxNjExNzgyNTQ0LCJleHAiOjE2MTE4MDI1NDQsImF6cCI6InZjeWxCRE1vRndyTEIxOVRIeTd0N01sTUVZNEpKa1hTIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.T90j37-qvSzUywBI28or81kZd2tcS7UI91FGXIOp7YCKR6rblKM0fxbJ_OVENmR9M0nRcUEZeHb0zLgDOjCkF8VAMu07lINUAukFfu2csgEHAxXZLJTFlEKdq5cVPlMoCAtRHyolKvgQAxhvPbobSbTBTeNn5TKQ8Qf6OswL6XNjnSwWYgIae513j6GOoKefOGZL54uMOKbm8UPvPcDw-voczZQrGlstQfkrq-liO5fBksBNL2Jskjao-46VWLDuSdIJ5jOaq1wgfqs55m9W5UnQO4yR3L5aqjTsegD5ixoYesKrO8FZ3YKsnn7JKMqeq4pAzBwLtjJmaySaXqjheA'
 
 class appTestCase(unittest.TestCase):
     def setUp(self):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_name = "capstone_test"
-        self.database_path = "postgres://{}/{}".format(
-            'postgres:Mashni@localhost:5433', self.database_name)
+        self.database_path = 'postgres://'f'{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_TEST_NAME}'
+
         setup_db(self.app, self.database_path)
 
         # binds the app to the current context

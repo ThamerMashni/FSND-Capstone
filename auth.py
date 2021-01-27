@@ -3,10 +3,7 @@ from flask import request, _request_ctx_stack
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
-
-AUTH0_DOMAIN = 'mashni.eu.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'agency'
+from Env import AUTH0_DOMAIN, ALGORITHMS, API_AUDIENCE
 
 # AuthError Exception
 '''
@@ -134,3 +131,4 @@ def requires_auth(permission=''):
             return f(payload, *args, **kwargs)
         return wrapper
     return requires_auth_decorator
+
