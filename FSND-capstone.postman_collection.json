@@ -447,97 +447,6 @@
 					"response": []
 				},
 				{
-					"name": "/actors/1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains drinks array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.actors).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"age\": 50\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/actors/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies/1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"",
-									"pm.test(\"value contains drinks array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.movies).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test movie patch\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/movies/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "/movies",
 					"event": [
 						{
@@ -573,7 +482,98 @@
 					"response": []
 				},
 				{
-					"name": "/actors/1",
+					"name": "/actors/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains drinks array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actors).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"age\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"value contains drinks array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.movies).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"test movie patch\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/4",
 					"event": [
 						{
 							"listen": "test",
@@ -591,13 +591,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/actors/1",
+							"raw": "{{host}}/actors/4",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -818,7 +818,7 @@
 					"response": []
 				},
 				{
-					"name": "/actors/1",
+					"name": "/actors/3",
 					"event": [
 						{
 							"listen": "test",
@@ -850,20 +850,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/actors/1",
+							"raw": "{{host}}/actors/3",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"1"
+								"3"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/movies/1",
+					"name": "/movies/3",
 					"event": [
 						{
 							"listen": "test",
@@ -896,20 +896,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/movies/1",
+							"raw": "{{host}}/movies/3",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"movies",
-								"1"
+								"3"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/actors/1",
+					"name": "/actors/3",
 					"event": [
 						{
 							"listen": "test",
@@ -927,20 +927,20 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/actors/1",
+							"raw": "{{host}}/actors/3",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"1"
+								"3"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/movies/1",
+					"name": "/movies/3",
 					"event": [
 						{
 							"listen": "test",
@@ -958,13 +958,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/movies/1",
+							"raw": "{{host}}/movies/3",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"movies",
-								"1"
+								"3"
 							]
 						}
 					},
