@@ -52,7 +52,7 @@ Endpoint that indicates the application is running normally
 - Body: 
     ```json
     {
-        'page': 'FSND Capstone Project'
+        "page": "FSND Capstone Project"
     }
     ```
 
@@ -132,8 +132,8 @@ Takes actor id in order to delete it,
 if succeeded to delete the actor the response would be:
 ```json
 {
-    "success": True,
-    "deleted": id
+    "success": "True",
+    "deleted": "id"
 }
 ```
 
@@ -186,7 +186,7 @@ Request body:
 Response :
 ```json
 {
-    "movie": <movie_id>,
+    "movie": "<movie_id>",
     "success": true
 }
 ```
