@@ -217,8 +217,8 @@ Takes movie id in order to delete it,
 if succeeded to delete the actor the response would be:
 ```json
 {
-    "success": True,
-    "deleted": id
+    "success": "True",
+    "deleted": "id"
 }
 ```
 
