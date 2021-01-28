@@ -5,7 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, Movie, Actor
 from Env import DB_TEST_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME, DB_HOST
-from Env import CASTING_ASSISTANT_TOKEN, CASTING_DIRECTOR_TOKEN, EXECUTIVE_PRODUCER_TOKEN
+from Env import EXECUTIVE_PRODUCER_TOKEN
+
 ACCESS_TOKEN = EXECUTIVE_PRODUCER_TOKEN
 
 class appTestCase(unittest.TestCase):
