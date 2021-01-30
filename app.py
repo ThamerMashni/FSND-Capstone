@@ -7,7 +7,6 @@ from models import setup_db, Movie, Actor
 import sys
 from auth import AuthError, requires_auth
 from functools import wraps
-from Env import *
 
 
 def create_app(test_config=None):
@@ -15,14 +14,14 @@ def create_app(test_config=None):
     app = Flask(__name__)
 
     db = setup_db(app)
-
+    
     @app.route("/auth")
     def generate_auth_url():
-        url = f'https://{AUTH0_DOMAIN}/authorize' \
-            f'?audience={API_AUDIENCE}' \
+        url = f'https://{os.environ['AUTH0_DOMAIN']}/authorize' \
+            f'?audience={os.environ['API_AUDIENCE']}' \
             f'&response_type=token&client_id=' \
-            f'{AUTH0_CLIENT_ID}&redirect_uri=' \
-            f'{AUTH0_CALLBACK_URL}'
+            f'{os.environ['AUTH0_CLIENT_ID']}&redirect_uri=' \
+            f'{os.environ['AUTH0_CALLBACK_URL']}'
 
         return redirect(url)
 

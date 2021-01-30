@@ -4,10 +4,15 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, Movie, Actor
-from Env import DB_TEST_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME, DB_HOST
-from Env import EXECUTIVE_PRODUCER_TOKEN
 
-ACCESS_TOKEN = EXECUTIVE_PRODUCER_TOKEN
+#local testing
+DB_TEST_NAME="capstone_test"
+DB_USERNAME="postgres"
+DB_PASSWORD="Mashni"
+DB_HOST="localhost"
+DB_PORT=5433
+
+ACCESS_TOKEN = os.environ['EXECUTIVE_PRODUCER_TOKEN']
 
 class appTestCase(unittest.TestCase):
     def setUp(self):
