@@ -1,10 +1,10 @@
 
 #AUTH0 config
-export ALGORITHMS=RS256
-export API_AUDIENCE=agency
-export AUTH0_CLIENT_ID=vcylBDMoFwrLB19THy7t7MlMEY4JJkXS
-export AUTH0_CALLBACK_URL=https://fsnd-capstone-mashni.herokuapp.com/
-export AUTH0_DOMAIN=mashni.eu.auth0.com
+export ALGORITHMS='RS256'
+export API_AUDIENCE='agency'
+export AUTH0_CLIENT_ID='vcylBDMoFwrLB19THy7t7MlMEY4JJkXS'
+export AUTH0_CALLBACK_URL='https://fsnd-capstone-mashni.herokuapp.com/'
+export AUTH0_DOMAIN='mashni.eu.auth0.com'
 
 
 #TOKENS FOR REVIEW 
