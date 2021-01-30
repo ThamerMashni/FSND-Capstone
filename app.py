@@ -1,13 +1,19 @@
 import os
-from flask import Flask, request, abort, jsonify
-from flask import url_for, render_template, session, redirect
+from flask import (
+  Flask, render_template,
+  request, session,
+  jsonify, redirect,
+  abort, url_for
+)
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Movie, Actor
 import sys
-from auth import AuthError, requires_auth
+from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE
 from functools import wraps
 
+AUTH0_CLIENT_ID=os.environ['AUTH0_CLIENT_ID']
+AUTH0_CALLBACK_URL=os.environ['AUTH0_CALLBACK_URL']
 
 def create_app(test_config=None):
     # create and configure the app
@@ -17,11 +23,11 @@ def create_app(test_config=None):
     
     @app.route("/auth")
     def generate_auth_url():
-        url = f'https://{os.environ['AUTH0_DOMAIN']}/authorize' \
-            f'?audience={os.environ['API_AUDIENCE']}' \
+        url = f'https://{AUTH0_DOMAIN}/authorize' \
+            f'?audience={API_AUDIENCE}' \
             f'&response_type=token&client_id=' \
-            f'{os.environ['AUTH0_CLIENT_ID']}&redirect_uri=' \
-            f'{os.environ['AUTH0_CALLBACK_URL']}'
+            f'{AUTH0_CLIENT_ID}&redirect_uri=' \
+            f'{AUTH0_CALLBACK_URL}'
 
         return redirect(url)
 
