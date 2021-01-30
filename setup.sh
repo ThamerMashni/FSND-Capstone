@@ -1,3 +1,4 @@
+export FLASK_APP=app
 
 #AUTH0 config
 export ALGORITHMS=['RS256']
