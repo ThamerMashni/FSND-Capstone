@@ -66,7 +66,7 @@ The application has 3 roles setup:
 ### Index `/`
 Endpoint that indicates the application is running normally
 **Response**:<br>
-- Require roles: Casting Assistant, Casting Director, Executive Producer
+- Require roles: no, public 
 - Type: JSON
 - Body: 
     ```json
@@ -80,25 +80,28 @@ Redirects to the Auth0 login page.
 
 ### GET `/actors`
 Returns list of actors
-```json
-{
-    "actors": [
-        {
-            "age": 60,
-            "gender": "Male",
-            "id": 3,
-            "name": "Crowe Russell"
-        },
-        {
-            "age": 40,
-            "gender": "Female",
-            "id": 4,
-            "name": "Michelle Williams"
-        }
-    ],
-    "success": true
-}
-```
+- Require roles: Casting Assistant or Casting Director or Executive Producer
+- Type: JSON
+- Body
+    ```json
+    {
+        "actors": [
+            {
+                "age": 60,
+                "gender": "Male",
+                "id": 3,
+                "name": "Crowe Russell"
+            },
+            {
+                "age": 40,
+                "gender": "Female",
+                "id": 4,
+                "name": "Michelle Williams"
+            }
+        ],
+        "success": true
+    }
+    ```
 ### POST `/actors`
 To add an actor to the database, It takes new actor details as a JSON body<br>
 Request body:
