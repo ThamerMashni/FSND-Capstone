@@ -61,11 +61,12 @@ The application has 3 roles setup:
     - *All permissions* of the casting director
     - Can *post* a new movie
     - Can *delete* a movie from the database
-    
+
 ## Endpoints
 ### Index `/`
 Endpoint that indicates the application is running normally
 **Response**:<br>
+- Require roles: Casting Assistant, Casting Director, Executive Producer
 - Type: JSON
 - Body: 
     ```json
