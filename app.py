@@ -12,8 +12,8 @@ import sys
 from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE
 from functools import wraps
 
-AUTH0_CLIENT_ID=os.environ['AUTH0_CLIENT_ID']
-AUTH0_CALLBACK_URL=os.environ['AUTH0_CALLBACK_URL']
+AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
+AUTH0_CALLBACK_URL = os.environ['AUTH0_CALLBACK_URL']
 
 def create_app(test_config=None):
     # create and configure the app
