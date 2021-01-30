@@ -5,21 +5,23 @@ from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, Movie, Actor
 
-#local testing
-DB_TEST_NAME="capstone_test"
-DB_USERNAME="postgres"
-DB_PASSWORD="Mashni"
-DB_HOST="localhost"
-DB_PORT=5433
+# local testing
+DB_TEST_NAME = "capstone_test"
+DB_USERNAME = "postgres"
+DB_PASSWORD = "Mashni"
+DB_HOST = "localhost"
+DB_PORT = 5433
 
 ACCESS_TOKEN = os.environ['EXECUTIVE_PRODUCER_TOKEN']
+
 
 class appTestCase(unittest.TestCase):
     def setUp(self):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_path = 'postgres://'f'{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_TEST_NAME}'
+        self.database_path = 'postgres://'f'{DB_USERNAME}:{DB_PASSWORD}\
+            @{DB_HOST}:{DB_PORT}/{DB_TEST_NAME}'
 
         setup_db(self.app, self.database_path)
 
@@ -45,7 +47,7 @@ class appTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(len(data['actors']), 4)
-    
+
     def test_fail_to_retrive_actors(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
@@ -54,8 +56,8 @@ class appTestCase(unittest.TestCase):
 
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 405)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],'Method not allowed')
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Method not allowed')
 
     def test_retrive_movies(self):
         headers = {
@@ -68,7 +70,7 @@ class appTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(len(data['movies']), 2)
-    
+
     def test_fail_to_movies(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
@@ -77,9 +79,9 @@ class appTestCase(unittest.TestCase):
 
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 405)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],'Method not allowed')
-    
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Method not allowed')
+
     # DELETE Endpoints Tests
     def test_delete_actor(self):
         headers = {
@@ -104,11 +106,11 @@ class appTestCase(unittest.TestCase):
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
         res = self.client().delete('/actor/1000', headers=headers)
-        data=json.loads(res.data)
+        data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],'resource not found')
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
 
     def test_delete_movie(self):
         headers = {
@@ -133,114 +135,111 @@ class appTestCase(unittest.TestCase):
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
         res = self.client().delete('/movies/1000', headers=headers)
-        data=json.loads(res.data)
+        data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],'resource not found')
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
 
-    # POST Endponts Tests 
-    
+    # POST Endponts Tests
+
     def test_create_actor(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().post('/actors',json={
+        res = self.client().post('/actors', json={
             'name': "test_actor1",
             'age': 22,
-            'gender':'Female'
+            'gender': 'Female'
         }, headers=headers)
-        data=json.loads(res.data)
-        
-        actor = Actor.query.filter(Actor.name=='test_actor1').first()
-        
+        data = json.loads(res.data)
+
+        actor = Actor.query.filter(Actor.name == 'test_actor1').first()
+
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'],True)
-        self.assertEqual(data['actor'],actor.format())
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['actor'], actor.format())
         actor.delete()
-        
 
     def test_fail_to_create_actor(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().post('/actors',json={
+        res = self.client().post('/actors', json={
             'age': 22,
-            'gender':'Female'
+            'gender': 'Female'
         }, headers=headers)
-        data=json.loads(res.data)
+        data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],"unprocessable")
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], "unprocessable")
 
-    
     def test_create_movie(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().post('/movies',json={
+        res = self.client().post('/movies', json={
             'title': "test_movie1",
             'release_date': '02-02-2020',
-            'actors': [] 
+            'actors': []
         }, headers=headers)
-        data=json.loads(res.data)
-        
-        movie = Movie.query.filter(Movie.title=='test_movie1').first()
-        
+        data = json.loads(res.data)
+
+        movie = Movie.query.filter(Movie.title == 'test_movie1').first()
+
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'],True)
-        self.assertEqual(data['movies'],movie.id)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['movies'], movie.id)
         movie.delete()
-        
 
     def test_fail_to_create_movie(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().post('/movies',json={
+        res = self.client().post('/movies', json={
             'title': "test_movie1"
         }, headers=headers)
-        data=json.loads(res.data)
+        data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],"unprocessable")
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], "unprocessable")
 
-    # PATCH Endponts Tests 
+    # PATCH Endponts Tests
     def test_update_actor(self):
-        test_actor = Actor(name='test_actor1', age=20,gender='Male')
+        test_actor = Actor(name='test_actor1', age=20, gender='Male')
         test_actor.insert()
 
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().patch(f'/actors/{test_actor.id}',json={
+        res = self.client().patch(f'/actors/{test_actor.id}', json={
             'name': "test_actor_patched",
             'age': 22,
-            'gender':'Female'
+            'gender': 'Female'
         }, headers=headers)
-        data=json.loads(res.data)
-                
+        data = json.loads(res.data)
+
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'],True)
-        self.assertEqual(data['actor'],test_actor.format())
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['actor'], test_actor.format())
         test_actor.delete()
 
     def test_fail_to_update_actor(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().patch(f'/actors/1000',json={
+        res = self.client().patch(f'/actors/1000', json={
             'name': "test_actor_patched",
             'age': 22,
-            'gender':'Female'
+            'gender': 'Female'
         }, headers=headers)
-        data=json.loads(res.data)
-                
+        data = json.loads(res.data)
+
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],'resource not found')
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
 
     def test_update_movie(self):
         test_movie = Movie(title='test_movie1', release_date='02-02-2020')
@@ -249,29 +248,30 @@ class appTestCase(unittest.TestCase):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().patch(f'/movies/{test_movie.id}',json={
+        res = self.client().patch(f'/movies/{test_movie.id}', json={
             'title': "test_movie_patched",
             'release_date': '02-02-2020'
         }, headers=headers)
-        data=json.loads(res.data)
-                
+        data = json.loads(res.data)
+
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'],True)
+        self.assertEqual(data['success'], True)
         test_movie.delete()
 
     def test_fail_to_update_movie(self):
         headers = {
             'Authorization': 'Bearer {}'.format(ACCESS_TOKEN)
         }
-        res = self.client().patch(f'/movies/1000',json={
+        res = self.client().patch(f'/movies/1000', json={
             'title': "test_movie_patched",
             'release_date': '02-02-2020'
         }, headers=headers)
-        data=json.loads(res.data)
-                
+        data = json.loads(res.data)
+
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'],False)
-        self.assertEqual(data['message'],'resource not found')
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":

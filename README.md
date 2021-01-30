@@ -43,7 +43,25 @@ Make sure you have [Python](https://www.python.org/downloads/) installed.
     export FLASK_ENV=development
     flask run
     ```
+## Roles and Permissions
+The application has 3 roles setup:
 
+1. **Casting Assistant**
+    - Can *get* all actors in the database
+    - Can *get* all movies in the database
+
+2. **Casting Director**
+    - *All permissions* of the casting assistant
+    - Can *post* a new actor
+    - Can *modify* the details of an existing actor
+    - Can *delete* an actor from the database
+    - Can *modify* the details of an existing movie
+
+3. **Executive Producer**
+    - *All permissions* of the casting director
+    - Can *post* a new movie
+    - Can *delete* a movie from the database
+    
 ## Endpoints
 ### Index `/`
 Endpoint that indicates the application is running normally
