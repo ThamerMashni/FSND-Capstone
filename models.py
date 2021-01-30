@@ -1,3 +1,4 @@
+import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from Env import DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME, DB_HOST
@@ -9,7 +10,7 @@ db = SQLAlchemy()
 
 def setup_db(app):
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = process.env.HEROKU_POSTGRESQL_MAROON_URL
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['HEROKU_POSTGRESQL_MAROON_URL']
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
