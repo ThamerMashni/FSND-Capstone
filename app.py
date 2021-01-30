@@ -12,7 +12,6 @@ import sys
 from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE
 from functools import wraps
 
-AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
 print(AUTH0_DOMAIN)
 AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
 AUTH0_CALLBACK_URL = os.environ['AUTH0_CALLBACK_URL']
