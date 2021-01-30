@@ -9,10 +9,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Movie, Actor
 import sys
-from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE
+from auth import AuthError, requires_auth
 from functools import wraps
 
-print(AUTH0_DOMAIN)
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+API_AUDIENCE = os.environ['API_AUDIENCE']
 AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
 AUTH0_CALLBACK_URL = os.environ['AUTH0_CALLBACK_URL']
 

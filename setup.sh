@@ -1,5 +1,5 @@
-#AUTH0 config
 
+#AUTH0 config
 export AUTH0_DOMAIN=mashni.eu.auth0.com
 export ALGORITHMS=RS256
 export API_AUDIENCE=agency
