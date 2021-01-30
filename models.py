@@ -7,7 +7,7 @@ from Env import DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME, DB_HOST
 db = SQLAlchemy()
 
 
-def setup_db(app, database_path=database_path):
+def setup_db(app):
 
     app.config["SQLALCHEMY_DATABASE_URI"] = process.env.HEROKU_POSTGRESQL_MAROON_URL
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
