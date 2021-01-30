@@ -13,9 +13,9 @@ from auth import AuthError, requires_auth
 from functools import wraps
 
 AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
-API_AUDIENCE = os.environ['API_AUDIENCE']
-AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
-AUTH0_CALLBACK_URL = os.environ['AUTH0_CALLBACK_URL']
+API_AUDIENCE = os.environ.get['API_AUDIENCE']
+AUTH0_CLIENT_ID = os.environ.get['AUTH0_CLIENT_ID']
+AUTH0_CALLBACK_URL = os.environ.get['AUTH0_CALLBACK_URL']
 
 def create_app(test_config=None):
     # create and configure the app
